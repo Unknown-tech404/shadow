@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>H@CKED BY Sh@dow</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Kanit:wght@300;400;600;700&family=Creepster&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -28,7 +28,6 @@
       align-items: center;
     }
 
-    /* Animated GIF background - fixed so it doesn't scroll */
     .background-gif {
       position: fixed;
       top: 0;
@@ -47,7 +46,6 @@
       50% { transform: scale(1.05); }
     }
 
-    /* Dark overlay - fixed */
     .overlay {
       position: fixed;
       top: 0;
@@ -58,7 +56,6 @@
       z-index: 2;
     }
 
-    /* Red scanline effect - fixed */
     .scanline {
       position: fixed;
       top: 0;
@@ -82,7 +79,6 @@
       100% { transform: translateY(100%); }
     }
 
-    /* Main container - no scroll needed */
     .content-wrapper {
       position: relative;
       width: 90%;
@@ -104,14 +100,12 @@
       50% { border-color: rgba(255, 0, 0, 0.9); box-shadow: 0 0 60px rgba(255, 0, 0, 0.5); }
     }
 
-    /* Logo container with glitch effect */
     .logo-container {
       margin-bottom: clamp(15px, 3vh, 25px);
       position: relative;
       display: inline-block;
     }
 
-    /* Glitch effect for logo */
     .logo {
       width: clamp(100px, 20vw, 150px);
       height: clamp(100px, 20vw, 150px);
@@ -165,7 +159,6 @@
       50% { box-shadow: 0 0 50px rgba(255, 0, 0, 0.9); border-color: #ff4444; }
     }
 
-    /* Main hacked text - glitch effect */
     .hacked-text {
       font-family: 'Orbitron', monospace;
       font-size: clamp(2rem, 7vw, 4rem);
@@ -175,7 +168,11 @@
       letter-spacing: clamp(3px, 1vw, 8px);
       margin: clamp(15px, 4vh, 30px) 0;
       animation: textPulse 1.5s ease-in-out infinite;
-      position: relative;
+    }
+
+    .hacked-text span {
+      font-family: 'Creepster', cursive;
+      display: inline-block;
     }
 
     @keyframes textPulse {
@@ -183,7 +180,6 @@
       50% { opacity: 0.9; text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; }
     }
 
-    /* Team badge */
     .team-badge {
       color: #ff0000;
       font-weight: bold;
@@ -218,7 +214,31 @@
       100% { left: 100%; }
     }
 
-    /* Quote box */
+    .hacked-box {
+      background: rgba(0, 0, 0, 0.85);
+      border: 1px solid #ff0000;
+      border-radius: 10px;
+      padding: 20px;
+      width: 100%;
+      text-align: left;
+      margin: 20px 0;
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+    }
+
+    .hacked-box p {
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      color: #e0e0e0;
+      border-left: 3px solid #ff0000;
+      padding-left: 12px;
+      line-height: 1.5;
+    }
+
+    .hacked-hl { 
+      color: #ff0000; 
+      font-weight: bold; 
+    }
+
     .quote-box {
       font-family: 'Share Tech Mono', monospace;
       font-size: clamp(0.85rem, 3vw, 1.1rem);
@@ -242,7 +262,6 @@
       50% { color: #ff6666; text-shadow: 0 0 15px #ff0000; }
     }
 
-    /* Matrix rain overlay */
     #matrixCanvas {
       position: fixed;
       top: 0;
@@ -254,7 +273,6 @@
       opacity: 0.3;
     }
 
-    /* Click effect */
     .click-effect {
       position: fixed;
       width: 100px;
@@ -272,7 +290,6 @@
       100% { transform: scale(3); opacity: 0; }
     }
 
-    /* Responsive - ensure no scroll on big screens */
     @media (min-width: 1200px) {
       .content-wrapper {
         margin: 20px auto;
@@ -284,6 +301,9 @@
         white-space: normal;
         word-break: break-word;
         line-height: 1.3;
+      }
+      .hacked-box p {
+        font-size: 0.7rem;
       }
     }
 
@@ -310,13 +330,10 @@
 </head>
 <body>
 
-  <!-- Animated GIF background -->
   <div class="background-gif"></div>
   
-  <!-- Dark overlay -->
   <div class="overlay"></div>
   
-  <!-- Scanline effect -->
   <div class="scanline"></div>
 
   <canvas id="matrixCanvas"></canvas>
@@ -327,18 +344,23 @@
       <img src="https://i.ibb.co.com/SDt1fHX9/logo.png" alt="Logo" class="logo">
     </div>
 
-    <div class="hacked-text">HACKED BY Sh@dow</div>
+    <div class="hacked-text"><span>HACKED BY SH@DOW From Bangladesh</span></div>
 
     <div class="team-badge">
       ⚠️ DARKNET CYBER FORCE ⚠️
     </div>
-
     <div class="team-badge">
       ⚠️ CHANDPUR CYBER TEAM ⚠️
     </div>
 
+    <div class="hacked-box">
+      <p><span class="hacked-hl">⚠️ Attention Admin,</span></p>
+      <p>Your website has been successfully compromised due to critical security vulnerabilities.Upgrade your security immediately.Don't forgate to stay with <b>PALESTINE</b></p>
+      <p><span class="hacked-hl">📢 Message:</span> I Hack for learn, not for harm. Stay Secure, Stay safe.</p>
+    </div>
+
     <div class="quote-box">
-      <span class="quote-text">“Free Free PALESTINE. From The River, To The Sea, PALESTINE Will Be Free”</span>
+      <span class="quote-text">“Free Free PALESTINE.<br>From The River,To The Sea,PALESTINE Will Be Free”</span>
     </div>
 
   </div>
@@ -349,6 +371,12 @@
 
   <script>
     (() => {
+      const rawBackgroundUrl = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/22636b73-943e-4736-b7ab-e08fbe4666a3/dboieho-691af0ac-b4da-47c6-88f1-4374b1a3451d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzIyNjM2YjczLTk0M2UtNDczNi1iN2FiLWUwOGZiZTQ2NjZhM1wvZGJvaWVoby02OTFhZjBhYy1iNGRhLTQ3YzYtODhmMS00Mzc0YjFhMzQ1MWQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Y_N1IQQ6rYKqent-_NFNt3UxEjq-eaO8-0zqd1V9vCg";
+      const bgContainer = document.querySelector('.background-gif');
+      if (bgContainer) {
+        bgContainer.style.backgroundImage = `url('${rawBackgroundUrl}')`;
+      }
+
       const canvas = document.getElementById('matrixCanvas');
       if (canvas) {
         const ctx = canvas.getContext('2d');
@@ -396,7 +424,7 @@
         initCanvas();
         drawMatrix();
       }
-     
+
       const audio = document.getElementById("myAudio");
       let audioPlayed = false;
       
@@ -411,7 +439,6 @@
         document.body.addEventListener(evt, playMusic, { once: true });
       });
 
-      // Click ripple effect
       function createRipple(x, y) {
         const ripple = document.createElement('div');
         ripple.className = 'click-effect';
