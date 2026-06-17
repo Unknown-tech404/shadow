@@ -34,7 +34,6 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/22636b73-943e-4736-b7ab-e08fbe4666a3/dboieho-691af0ac-b4da-47c6-88f1-4374b1a3451d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzIyNjM2YjczLTk0M2UtNDczNi1iN2FiLWUwOGZiZTQ2NjZhM1wvZGJvaWVoby02OTFhZjBhYy1iNGRhLTQ3YzYtODhmMS00Mzc0YjFhMzQ1MWQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Y_N1IQQ6rYKqent-_NFNt3UxEjq-eaO8-0zqd1V9vCg');
       background-size: cover;
       background-position: center;
       z-index: 1;
@@ -98,6 +97,19 @@
     @keyframes borderPulse {
       0%, 100% { border-color: rgba(255, 0, 0, 0.4); box-shadow: 0 0 30px rgba(255, 0, 0, 0.2); }
       50% { border-color: rgba(255, 0, 0, 0.9); box-shadow: 0 0 60px rgba(255, 0, 0, 0.5); }
+    }
+
+    .kalema {
+      width: clamp(120px, 25vw, 200px);
+      max-width: 70%;
+      margin-bottom: clamp(10px, 2vh, 20px);
+      filter: drop-shadow(0 0 15px #ff0000);
+      animation: kalemaGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes kalemaGlow {
+      0%, 100% { filter: drop-shadow(0 0 5px #ff0000); }
+      50% { filter: drop-shadow(0 0 25px #ff0000) drop-shadow(0 0 15px #ff6600); }
     }
 
     .logo-container {
@@ -340,6 +352,8 @@
 
   <div class="content-wrapper">
     
+    <img src="https://i.ibb.co.com/MdyBkYh/1776880906546.png" alt="Kalema symbol" class="kalema">
+    <br>
     <div class="logo-container">
       <img src="https://i.ibb.co.com/SDt1fHX9/logo.png" alt="Logo" class="logo">
     </div>
@@ -355,7 +369,7 @@
 
     <div class="hacked-box">
       <p><span class="hacked-hl">⚠️ Attention Admin,</span></p>
-      <p>Your website has been compromised due to critical security vulnerabilities.Upgrade your security immediately.Don't forgate to stay with <b>PALESTINE</b></p>
+      <p>Your website has been compromised due to critical security vulnerabilities. Upgrade your security immediately. Don't forget to stay with <b>PALESTINE</b></p>
       <p><span class="hacked-hl">📢 Message:</span> I Hack for learn, not for harm. Stay Secure, Stay safe.</p>
     </div>
 
@@ -416,20 +430,19 @@
             }
             drops[i]++;
           }
-          requestAnimationFrame(drawMatrix);
         }
 
         window.addEventListener('resize', initCanvas);
         
         initCanvas();
-        drawMatrix();
+        setInterval(drawMatrix, 30);
       }
 
       const audio = document.getElementById("myAudio");
       let audioPlayed = false;
       
       function playMusic() {
-        if (!audioPlayed) {
+        if (!audioPlayed && audio) {
           audio.volume = 0.2;
           audio.play().then(() => { audioPlayed = true; }).catch(() => {});
         }
