@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>H@CKED BY Sh@dow</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Great+Vibes&family=Cinema+Decorative:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -14,15 +14,235 @@
     }
 
     body {
-      font-family: 'Montserrat', sans-serif;
-      background: #000;
-      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #ff0000;
+      font-family: "Courier New", Courier, monospace;
+      text-align: center;
+      overflow-y: auto;
       overflow-x: hidden;
+      min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
     }
 
+    /* Animated GIF background - fixed so it doesn't scroll */
+    .background-gif {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/22636b73-943e-4736-b7ab-e08fbe4666a3/dboieho-691af0ac-b4da-47c6-88f1-4374b1a3451d.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzIyNjM2YjczLTk0M2UtNDczNi1iN2FiLWUwOGZiZTQ2NjZhM1wvZGJvaWVoby02OTFhZjBhYy1iNGRhLTQ3YzYtODhmMS00Mzc0YjFhMzQ1MWQuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.Y_N1IQQ6rYKqent-_NFNt3UxEjq-eaO8-0zqd1V9vCg');
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+      animation: slowZoom 20s ease-in-out infinite;
+    }
+
+    @keyframes slowZoom {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Dark overlay - fixed */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 2;
+    }
+
+    /* Red scanline effect - fixed */
+    .scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 0, 0, 0.08) 0px,
+        rgba(255, 0, 0, 0.08) 2px,
+        transparent 2px,
+        transparent 6px
+      );
+      pointer-events: none;
+      z-index: 5;
+      animation: scanMove 8s linear infinite;
+    }
+
+    @keyframes scanMove {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(100%); }
+    }
+
+    /* Main container - no scroll needed */
+    .content-wrapper {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      margin: 40px auto;
+      text-align: center;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      padding: clamp(20px, 4vh, 40px) clamp(15px, 4vw, 30px);
+      border: 2px solid rgba(255, 0, 0, 0.5);
+      border-radius: 20px;
+      box-shadow: 0 0 50px rgba(255, 0, 0, 0.3), inset 0 0 30px rgba(255, 0, 0, 0.05);
+      animation: borderPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes borderPulse {
+      0%, 100% { border-color: rgba(255, 0, 0, 0.4); box-shadow: 0 0 30px rgba(255, 0, 0, 0.2); }
+      50% { border-color: rgba(255, 0, 0, 0.9); box-shadow: 0 0 60px rgba(255, 0, 0, 0.5); }
+    }
+
+    /* Logo container with glitch effect */
+    .logo-container {
+      margin-bottom: clamp(15px, 3vh, 25px);
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Glitch effect for logo */
+    .logo {
+      width: clamp(100px, 20vw, 150px);
+      height: clamp(100px, 20vw, 150px);
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ff0000;
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+      transition: all 0.3s ease;
+      position: relative;
+      animation: logoGlow 2s ease-in-out infinite;
+    }
+
+    .logo-container::before,
+    .logo-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: url('https://i.ibb.co.com/SDt1fHX9/logo.png') center/cover;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .logo-container::before {
+      animation: glitchLogo1 2.5s infinite;
+    }
+
+    .logo-container::after {
+      animation: glitchLogo2 2.5s infinite;
+    }
+
+    @keyframes glitchLogo1 {
+      0%, 100% { opacity: 0; transform: translate(0); }
+      95% { opacity: 0; }
+      96% { opacity: 0.8; transform: translate(-3px, 2px); }
+      97% { opacity: 0; }
+    }
+
+    @keyframes glitchLogo2 {
+      0%, 100% { opacity: 0; transform: translate(0); }
+      97% { opacity: 0; }
+      98% { opacity: 0.8; transform: translate(3px, -2px); }
+      99% { opacity: 0; }
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); border-color: #ff0000; }
+      50% { box-shadow: 0 0 50px rgba(255, 0, 0, 0.9); border-color: #ff4444; }
+    }
+
+    /* Main hacked text - glitch effect */
+    .hacked-text {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2rem, 7vw, 4rem);
+      font-weight: 900;
+      color: #ff0000;
+      text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+      letter-spacing: clamp(3px, 1vw, 8px);
+      margin: clamp(15px, 4vh, 30px) 0;
+      animation: textPulse 1.5s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes textPulse {
+      0%, 100% { opacity: 1; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000; }
+      50% { opacity: 0.9; text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; }
+    }
+
+    /* Team badge */
+    .team-badge {
+      color: #ff0000;
+      font-weight: bold;
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.7);
+      padding: clamp(8px, 1.5vh, 12px) clamp(20px, 5vw, 35px);
+      margin: 15px 0;
+      font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      border: 1px solid #ff0000;
+      border-radius: 0;
+      font-family: 'Share Tech Mono', monospace;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.3), transparent);
+      animation: badgeSweep 3s infinite;
+    }
+
+    @keyframes badgeSweep {
+      0% { left: -100%; }
+      50% { left: 100%; }
+      100% { left: 100%; }
+    }
+
+    /* Quote box */
+    .quote-box {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(0.85rem, 3vw, 1.1rem);
+      color: #ff4444;
+      background: rgba(0, 0, 0, 0.6);
+      padding: clamp(12px, 2vh, 18px);
+      margin-top: 20px;
+      border-left: 4px solid #ff0000;
+      border-right: 1px solid rgba(255, 0, 0, 0.3);
+      width: 100%;
+      position: relative;
+    }
+
+    .quote-text {
+      display: block;
+      animation: quoteGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes quoteGlow {
+      0%, 100% { color: #ff4444; text-shadow: 0 0 5px #ff0000; }
+      50% { color: #ff6666; text-shadow: 0 0 15px #ff0000; }
+    }
+
+    /* Matrix rain overlay */
     #matrixCanvas {
       position: fixed;
       top: 0;
@@ -30,127 +250,97 @@
       width: 100%;
       height: 100%;
       z-index: 0;
-      background: radial-gradient(circle at center, #021a0a 0%, #000000 100%);
-      display: block;
+      pointer-events: none;
+      opacity: 0.3;
     }
 
-    .content-wrapper {
-      position: relative;
-      width: 92%;
-      max-width: 820px;
-      margin: 0 auto;
-      text-align: center;
-      z-index: 10;
-      background: rgba(0, 0, 0, 0.78);
-      backdrop-filter: blur(4px);
-      padding: 40px 24px;
-      border-radius: 40px;
-      border: 1px solid rgba(255, 40, 40, 0.7);
-      box-shadow: 0 0 35px rgba(255, 0, 0, 0.35);
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .kalema {
-      width: 240px;
-      max-width: 75%;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 12px #ff3b3b);
-      display: block;
-    }
-
-    .logo-container {
-      display: block;
-      margin: 0 0 20px 0;
-      animation: floatLogo 3s ease-in-out infinite;
-    }
-
-    @keyframes floatLogo {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
-      100% { transform: translateY(0px); }
-    }
-
-    .logo {
-      width: 140px;
-      height: 140px;
+    /* Click effect */
+    .click-effect {
+      position: fixed;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #ff2a2a;
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.7);
-      animation: softGlowPulse 2.2s infinite alternate;
-      display: block;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.8), transparent);
+      transform: scale(0);
+      animation: clickRipple 0.5s ease-out forwards;
+      pointer-events: none;
+      z-index: 100;
     }
 
-    @keyframes softGlowPulse {
-      0% { box-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff0000; border-color: #ff4444; }
-      100% { box-shadow: 0 0 25px #ff0000, 0 0 35px #ff6600; border-color: #ff8800; }
+    @keyframes clickRipple {
+      0% { transform: scale(0); opacity: 0.8; }
+      100% { transform: scale(3); opacity: 0; }
     }
 
-    .hacked-text {
-      font-family: 'Inter';
-      font-size: 2.8rem;
-      background: linear-gradient(135deg, #ff4d4d, #ffb347, #ff4d4d);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 20px rgba(255, 0, 0, 0.9), 0 0 8px rgba(255, 200, 0, 0.6);
-      font-weight: 900;
-      letter-spacing: 3px;
-      margin: 0 0 12px 0;
-      animation: shineText 3s linear infinite;
-      transform-origin: center;
-      display: inline-block;
-      padding: 0 10px;
-    }
-
-    @keyframes shineText {
-      0% { background-position: 0% 50%; text-shadow: 0 0 10px #ff0000; }
-      50% { background-position: 100% 50%; text-shadow: 0 0 28px #ff6600, 0 0 12px #ff0000; }
-      100% { background-position: 0% 50%; text-shadow: 0 0 10px #ff0000; }
-    }
-
-    .glow-quote {
-      font-style: italic;
-      text-align: center;
-      color: #ffd966;
-      background: #1a0000aa;
-      padding: 12px;
-      border-radius: 24px;
-      margin-top: 20px;
-      font-weight: 500;
-      border: 1px dashed #ff6666;
-      font-family: 'Montserrat', sans-serif;
+    /* Responsive - ensure no scroll on big screens */
+    @media (min-width: 1200px) {
+      .content-wrapper {
+        margin: 20px auto;
+      }
     }
 
     @media (max-width: 550px) {
-      .content-wrapper { padding: 30px 18px; }
-      .logo { width: 110px; height: 110px; }
-      .hacked-text { font-size: 1.9rem; letter-spacing: 1px; }
-      .kalema { width: 180px; }
+      .team-badge {
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.3;
+      }
+    }
+
+    @media (max-height: 700px) {
+      .content-wrapper {
+        margin: 20px auto;
+        padding: 20px;
+      }
+      .logo {
+        width: 90px;
+        height: 90px;
+      }
+      .hacked-text {
+        margin: 10px 0;
+      }
+      .team-badge {
+        margin: 8px 0;
+      }
+      .quote-box {
+        margin-top: 10px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <!-- Animated GIF background -->
+  <div class="background-gif"></div>
+  
+  <!-- Dark overlay -->
+  <div class="overlay"></div>
+  
+  <!-- Scanline effect -->
+  <div class="scanline"></div>
+
   <canvas id="matrixCanvas"></canvas>
 
   <div class="content-wrapper">
-    <img src="https://i.ibb.co.com/MdyBkYh/1776880906546.png" alt="Kalema symbol" class="kalema">
     
     <div class="logo-container">
-      <img src="https://i.ibb.co.com/SDt1fHX9/logo.png" alt="Sh@dow-Logo" class="logo">
+      <img src="https://i.ibb.co.com/SDt1fHX9/logo.png" alt="Logo" class="logo">
     </div>
-    
+
     <div class="hacked-text">HACKED BY Sh@dow</div>
-    
-    <div class="glow-quote">
-      “A single hour of reflection is better than a lifetime of heedlessness.”
+
+    <div class="team-badge">
+      ⚠️ DARKNET CYBER FORCE ⚠️
     </div>
+
+    <div class="team-badge">
+      ⚠️ CHANDPUR CYBER TEAM ⚠️
+    </div>
+
+    <div class="quote-box">
+      <span class="quote-text">“Free Free PALESTINE. From The River, To The Sea, PALESTINE Will Be Free”</span>
+    </div>
+
   </div>
 
   <audio id="myAudio" loop preload="auto">
@@ -158,85 +348,82 @@
   </audio>
 
   <script>
-    (function() {
+    (() => {
       const canvas = document.getElementById('matrixCanvas');
-      const ctx = canvas.getContext('2d');
-      
-      let width = window.innerWidth;
-      let height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-      
-      const fontSize = 18;
-      const columnWidth = 22;      
-      const columns = Math.floor(width / columnWidth);
-      const drops = new Array(columns).fill().map(() => Math.floor(Math.random() * -height));
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        
+        let width, height, columns, drops;
+        const fontSize = 14;
+        const columnWidth = 18;      
+        const matrixChars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHJKLMNOPQRSTUVWXYZ!@#$%&";
+        
+        function initCanvas() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          canvas.width = width;
+          canvas.height = height;
+          columns = Math.floor(width / columnWidth);
+          drops = new Array(columns).fill(0).map(() => Math.floor(Math.random() * -(height / fontSize)));
+        }
 
-      const matrixChars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%&";
-      
-      function drawMatrix() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.045)";
-        ctx.fillRect(0, 0, width, height);
-        
-        ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
-        
-        for (let i = 0; i < drops.length; i++) {
-          const randomChar = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-          const intensity = Math.random() > 0.85 ? "#ff3a3a" : "#2eff8c";
-          ctx.fillStyle = intensity;
-          const x = i * columnWidth;
-          const y = drops[i] * fontSize;
-          ctx.fillText(randomChar, x, y);
+        function drawMatrix() {
+          ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+          ctx.fillRect(0, 0, width, height);
           
-          if (y > height && Math.random() > 0.975) {
-            drops[i] = 0;
+          ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
+          
+          for (let i = 0; i < drops.length; i++) {
+            const randomChar = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+            
+            const redIntensity = Math.floor(Math.random() * 100 + 155);
+            ctx.fillStyle = `rgb(${redIntensity}, 0, 0)`;
+            
+            const x = i * columnWidth;
+            const y = drops[i] * fontSize;
+            ctx.fillText(randomChar, x, y);
+            
+            if (y > height && Math.random() > 0.975) {
+              drops[i] = 0;
+            }
+            drops[i]++;
           }
-          drops[i]++;
+          requestAnimationFrame(drawMatrix);
         }
-        requestAnimationFrame(drawMatrix);
-      }
 
-      window.addEventListener('resize', () => {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
+        window.addEventListener('resize', initCanvas);
         
-        const newColumns = Math.floor(width / columnWidth);
-        drops.length = newColumns;
-        for (let i = 0; i < newColumns; i++) {
-          if (drops[i] === undefined) drops[i] = Math.floor(Math.random() * -height);
-        }
-      });
-      
-      drawMatrix();
+        initCanvas();
+        drawMatrix();
+      }
      
       const audio = document.getElementById("myAudio");
       let audioPlayed = false;
       
       function playMusic() {
         if (!audioPlayed) {
-          audio.play().then(() => {
-            audioPlayed = true;
-          }).catch(() => {});
+          audio.volume = 0.2;
+          audio.play().then(() => { audioPlayed = true; }).catch(() => {});
         }
       }
       
-      document.body.addEventListener("click", playMusic, { once: true });
-      document.body.addEventListener("touchstart", playMusic, { once: true });
-      document.addEventListener("keydown", playMusic, { once: true });
-      
-      const wrapper = document.querySelector('.content-wrapper');
-      if (wrapper) {
-        setInterval(() => {
-          if (Math.random() > 0.85) {
-            wrapper.style.boxShadow = '0 0 30px rgba(255, 40, 40, 0.7)';
-            setTimeout(() => {
-              wrapper.style.boxShadow = '0 0 35px rgba(255, 0, 0, 0.35)';
-            }, 300);
-          }
-        }, 2800);
+      ['click', 'touchstart', 'keydown'].forEach(evt => {
+        document.body.addEventListener(evt, playMusic, { once: true });
+      });
+
+      // Click ripple effect
+      function createRipple(x, y) {
+        const ripple = document.createElement('div');
+        ripple.className = 'click-effect';
+        ripple.style.left = (x - 50) + 'px';
+        ripple.style.top = (y - 50) + 'px';
+        document.body.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 500);
       }
+
+      document.addEventListener('click', (e) => {
+        createRipple(e.clientX, e.clientY);
+      });
     })();
   </script>
 </body>
